@@ -1,0 +1,82 @@
+.boot-sequence,
+.landing-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: var(--matrix-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.boot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  z-index: 10;
+  padding: 20px;
+}
+
+.boot-logo {
+  animation: fadeIn 1s ease-out;
+}
+
+.ascii-logo {
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--matrix-green);
+  text-shadow:
+    0 0 10px var(--matrix-shadow),
+    0 0 20px var(--matrix-shadow);
+  margin: 0;
+}
+
+.boot-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.boot-message {
+  font-size: 16px;
+  color: var(--matrix-green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.boot-prompt {
+  color: var(--matrix-green-light);
+  font-weight: bold;
+}
+
+/* Responsive boot sequence */
+@media (max-width: 768px) {
+  .ascii-logo {
+    font-size: 8px;
+  }
+
+  .boot-message {
+    font-size: 14px;
+  }
+
+  .boot-messages {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ascii-logo {
+    font-size: 6px;
+  }
+
+  .boot-message {
+    font-size: 12px;
+  }
+}

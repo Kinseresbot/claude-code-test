@@ -1,0 +1,245 @@
+.neural-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  border-left: 2px solid var(--matrix-green);
+  transition: width 0.3s ease;
+  z-index: 500;
+  overflow: hidden;
+}
+
+.neural-sidebar.collapsed {
+  width: 50px;
+}
+
+.neural-sidebar.expanded {
+  width: 300px;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  background: transparent;
+  border: 1px solid var(--matrix-green);
+  color: var(--matrix-green);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 10px var(--matrix-shadow);
+}
+
+.sidebar-collapsed-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 80px;
+}
+
+.brain-pulse {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--matrix-green-dark);
+  border-radius: 50%;
+  position: relative;
+}
+
+.brain-pulse::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--matrix-green-dark);
+  border-radius: 50%;
+}
+
+.brain-pulse.active {
+  border-color: var(--matrix-green);
+  animation: pulse 1s infinite;
+}
+
+.brain-pulse.active::before {
+  background: var(--matrix-green);
+  animation: glow 1s infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--matrix-shadow);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--matrix-shadow);
+  }
+}
+
+.sidebar-content {
+  padding: 60px 16px 20px 16px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-header {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--matrix-green);
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--matrix-green-dark);
+}
+
+.neural-network {
+  background: rgba(0, 255, 65, 0.02);
+  border: 1px solid var(--matrix-green-dark);
+  border-radius: 4px;
+  padding: 12px;
+  min-height: 200px;
+}
+
+.node-active {
+  animation: nodeGlow 0.5s ease;
+}
+
+@keyframes nodeGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px #00FF41);
+  }
+  50% {
+    filter: drop-shadow(0 0 6px #00FF41);
+  }
+}
+
+.processing-status {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid var(--matrix-green-dark);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 11px;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.status-line {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.status-line:last-child {
+  margin-bottom: 0;
+}
+
+.status-label {
+  color: var(--matrix-green-light);
+  font-weight: bold;
+}
+
+.status-value {
+  color: var(--matrix-green);
+  padding-left: 8px;
+}
+
+.system-metrics {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--matrix-green);
+}
+
+.metrics-header,
+.metrics-footer {
+  white-space: pre;
+  font-size: 10px;
+}
+
+.metrics-content {
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+}
+
+.metric-label {
+  min-width: 90px;
+  color: var(--matrix-green);
+}
+
+.metric-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid var(--matrix-green-dark);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.metric-fill {
+  height: 100%;
+  background: var(--matrix-green);
+  box-shadow: 0 0 5px var(--matrix-shadow);
+  transition: width 0.5s ease;
+}
+
+.metric-value {
+  min-width: 35px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.metric-status {
+  flex: 1;
+  text-align: right;
+  color: var(--matrix-green);
+}
+
+.metric-status.online {
+  color: var(--matrix-green-light);
+  text-shadow: 0 0 5px var(--matrix-shadow);
+}
+
+/* Scrollbar */
+.sidebar-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--matrix-green-dark);
+  border-radius: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .neural-sidebar.expanded {
+    width: 250px;
+  }
+
+  .sidebar-content {
+    padding: 60px 12px 20px 12px;
+  }
+}
