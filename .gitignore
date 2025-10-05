@@ -33,3 +33,5 @@ Thumbs.db
 # Testing
 coverage/
 *.test.js.snap
+
+.vercel

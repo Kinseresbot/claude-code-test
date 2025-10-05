@@ -1,0 +1,127 @@
+/* Modern Boot Sequence - Orbital Loader */
+
+.modern-boot-sequence {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated gradient background */
+.modern-boot-sequence::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  animation: gradientShift 15s ease infinite;
+  opacity: 0.6;
+}
+
+.neural-loader {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+/* Orbital rings animation */
+.neural-orbit {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  margin: 0 auto 3rem;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-primary-500);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: orbitPulse 3s ease-in-out infinite;
+}
+
+.orbit-ring-2 {
+  animation-delay: 0.5s;
+  border-color: var(--color-secondary-500);
+}
+
+.orbit-ring-3 {
+  animation-delay: 1s;
+  border-color: var(--color-accent-500);
+}
+
+/* Glowing core */
+.neural-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-neural);
+  border-radius: 50%;
+  box-shadow: var(--glow-lg);
+  animation: coreGlow 2s ease-in-out infinite;
+}
+
+@keyframes coreGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(99, 102, 241, 0.9),
+                0 0 80px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* Boot text */
+.boot-text {
+  animation: fadeInUp 0.5s ease-out 0.3s backwards;
+}
+
+.boot-title {
+  font-size: var(--text-3xl);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  margin-bottom: 1.5rem;
+}
+
+/* Progress bar */
+.boot-progress {
+  width: 300px;
+  height: 4px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--gradient-neural);
+  animation: progressLoad 2s ease-out forwards;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+@keyframes progressLoad {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Loading status text */
+.boot-status {
+  margin-top: 1.5rem;
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  animation: pulse 2s ease-in-out infinite;
+}
