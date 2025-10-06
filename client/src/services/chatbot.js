@@ -47,6 +47,26 @@ class ChatbotService {
           return response.data.output;
         }
 
+        // If n8n returns an object with a text field
+        if (response.data.text) {
+          return response.data.text;
+        }
+
+        // If n8n returns an object with a content field
+        if (response.data.content) {
+          return response.data.content;
+        }
+
+        // If n8n returns an object with a reply field
+        if (response.data.reply) {
+          return response.data.reply;
+        }
+
+        // If n8n returns an object with an answer field
+        if (response.data.answer) {
+          return response.data.answer;
+        }
+
         // Fallback: stringify the response
         return JSON.stringify(response.data);
       }

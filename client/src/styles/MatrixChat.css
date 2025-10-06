@@ -236,6 +236,7 @@
 .message-text {
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-lg);
+  font-family: var(--font-primary);
   font-size: 15px;
   line-height: var(--leading-relaxed);
   word-wrap: break-word;
