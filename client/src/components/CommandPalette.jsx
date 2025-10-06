@@ -81,7 +81,7 @@ const CommandPalette = ({ isOpen, onClose, onCommand }) => {
     <div className="command-palette-overlay" onClick={onClose}>
       <div className="command-palette" onClick={(e) => e.stopPropagation()}>
         <div className="palette-header">
-          <span className="text-glow">┌─ AVAILABLE COMMANDS ─────────────────────────┐</span>
+          <span>Available Commands</span>
         </div>
 
         <div className="palette-content">
@@ -92,19 +92,17 @@ const CommandPalette = ({ isOpen, onClose, onCommand }) => {
               onClick={() => handleSelectCommand(cmd)}
               onMouseEnter={() => setSelectedIndex(index)}
             >
-              <span className="command-name text-glow">{cmd.command}</span>
-              <span className="command-arrow">→</span>
+              <span className="command-name">{cmd.command}</span>
               <span className="command-description">{cmd.description}</span>
             </div>
           ))}
         </div>
 
         <div className="palette-footer">
-          <span className="text-glow">└──────────────────────────────────────────────┘</span>
           <div className="palette-hints">
-            <span className="hint">↑↓ Navigate</span>
-            <span className="hint">Enter Select</span>
-            <span className="hint">Esc Close</span>
+            <kbd>↑↓</kbd> Navigate
+            <kbd>Enter</kbd> Select
+            <kbd>Esc</kbd> Close
           </div>
         </div>
       </div>

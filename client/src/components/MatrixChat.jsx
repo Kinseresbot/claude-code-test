@@ -1,7 +1,10 @@
+
+
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import chatbotService from '../services/chatbot';
 import CommandPalette from './CommandPalette';
-import NeuralBackground from './NeuralBackground';
 import TerminalStatusBar from './TerminalStatusBar';
 import SocialProofTicker from './SocialProofTicker';
 import MatrixWaterfall from './MatrixWaterfall';
@@ -36,6 +39,8 @@ const MatrixChat = () => {
   const [messageCount, setMessageCount] = useState(0);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -160,6 +165,13 @@ const MatrixChat = () => {
     });
   };
 
+  const handleLogout = async () => {
+    await logout();
+    localStorage.removeItem('matrix_boot_seen');
+    localStorage.removeItem('matrix_welcome_seen');
+    navigate('/app/login');
+  };
+
   return (
     <div className="matrix-chat-container">
       {/* Social Proof Ticker */}
@@ -183,14 +195,18 @@ const MatrixChat = () => {
 
       {/* Main Chat Window */}
       <div className="terminal-window">
-        {/* Neural Network Background */}
-        <NeuralBackground isProcessing={isLoading} />
         {/* Header */}
         <div className="terminal-header">
           <div className="terminal-title">
             AI Assistant
           </div>
           <div className="terminal-controls">
+            {user && (
+              <button className="logout-button" onClick={handleLogout} title="Logout">
+                <span className="logout-icon">⏻</span>
+                <span className="logout-text">Logout</span>
+              </button>
+            )}
             <span className="control-dot"></span>
             <span className="control-dot"></span>
             <span className="control-dot"></span>

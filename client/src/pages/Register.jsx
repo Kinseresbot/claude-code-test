@@ -2,26 +2,48 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    // Validate password strength
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await login(email, password);
+      await register(email, password);
+      setSuccess('Account created successfully! Please check your email to verify your account.');
+
       // Clear welcome flags to show welcome HUD again
       localStorage.removeItem('matrix_welcome_seen');
-      navigate('/');
+
+      // Redirect to landing page after 2 seconds
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } catch (err) {
-      setError(err.message || 'Failed to login. Please check your credentials.');
+      setError(err.message || 'Failed to create account. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -50,7 +72,7 @@ const Login = () => {
           color: '#333',
           fontSize: '28px'
         }}>
-          Login
+          Create Account
         </h1>
 
         {error && (
@@ -64,6 +86,20 @@ const Login = () => {
             border: '1px solid #fcc'
           }}>
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div style={{
+            background: '#efe',
+            color: '#3a3',
+            padding: '12px',
+            borderRadius: '6px',
+            marginBottom: '20px',
+            fontSize: '14px',
+            border: '1px solid #cfc'
+          }}>
+            {success}
           </div>
         )}
 
@@ -98,7 +134,7 @@ const Login = () => {
             />
           </div>
 
-          <div style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '20px' }}>
             <label style={{
               display: 'block',
               marginBottom: '8px',
@@ -112,6 +148,39 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '12px',
+                borderRadius: '6px',
+                border: '1px solid #ddd',
+                fontSize: '15px',
+                boxSizing: 'border-box',
+                transition: 'border-color 0.2s'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#667eea'}
+              onBlur={(e) => e.target.style.borderColor = '#ddd'}
+            />
+            <small style={{ color: '#888', fontSize: '12px' }}>
+              Must be at least 6 characters
+            </small>
+          </div>
+
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              color: '#555',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}>
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
               disabled={loading}
               style={{
@@ -150,7 +219,7 @@ const Login = () => {
               e.target.style.transform = 'translateY(0)';
             }}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
 
           <div style={{
@@ -159,9 +228,9 @@ const Login = () => {
             fontSize: '14px',
             color: '#666'
           }}>
-            Don't have an account?{' '}
+            Already have an account?{' '}
             <a
-              href="/app/register"
+              href="/app/login"
               style={{
                 color: '#667eea',
                 textDecoration: 'none',
@@ -170,7 +239,7 @@ const Login = () => {
               onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
               onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
             >
-              Sign up
+              Login
             </a>
           </div>
         </form>
@@ -179,4 +248,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -105,7 +105,58 @@
 
 .terminal-controls {
   display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Logout Button */
+.logout-button {
+  display: flex;
+  align-items: center;
   gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--color-cyan-500);
+  border-radius: var(--radius-lg);
+  color: var(--text-cyan);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--glow-cyan-sm);
+  backdrop-filter: blur(8px);
+}
+
+.logout-button:hover {
+  background: rgba(0, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-cyan-md);
+  border-color: var(--color-cyan-400);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+}
+
+.logout-icon {
+  font-size: var(--text-lg);
+  line-height: 1;
+}
+
+.logout-text {
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Hide logout text on small screens */
+@media (max-width: 640px) {
+  .logout-text {
+    display: none;
+  }
+
+  .logout-button {
+    padding: var(--space-2);
+  }
 }
 
 .control-dot {
