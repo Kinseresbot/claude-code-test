@@ -1,75 +1,115 @@
+/* Terminal Status Bar - Cyberpunk Ticker Style */
+
 .terminal-status-bar {
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
+  background: var(--glass-dark);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--glass-border);
+  z-index: var(--z-fixed);
+  padding: var(--space-2) 0;
+  overflow: hidden;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3), var(--glow-cyan-sm);
+}
+
+/* Scan Line Effect */
+.terminal-status-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.5),
+    transparent
+  );
+  animation: scanLine 3s linear infinite;
+}
+
+.ticker-container {
   width: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  border-top: 1px solid var(--matrix-green);
-  padding: 8px 20px;
-  z-index: 100;
-  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+  position: relative;
 }
 
-.status-bar-content {
+.ticker-content {
   display: flex;
+  position: relative;
+  height: 24px;
+}
+
+.ticker-item {
+  position: absolute;
+  left: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 11px;
+  gap: var(--space-2);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding: 0 var(--space-6);
 }
 
-.status-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--matrix-green);
+.ticker-item.active {
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  animation: flickerIn 0.5s var(--ease-out);
 }
 
-.status-label {
-  color: var(--matrix-green-dark);
+.ticker-item.next {
+  opacity: 0;
 }
 
-.status-value {
-  font-weight: bold;
-  color: var(--matrix-green-light);
+.ticker-icon {
+  color: var(--text-cyan);
+  font-weight: var(--weight-bold);
+  margin-right: var(--space-2);
+  animation: glowPulse 2s infinite;
 }
 
-.status-separator {
-  color: var(--matrix-green-dark);
-  font-size: 14px;
+.ticker-text {
+  color: var(--text-primary);
+  position: relative;
+}
+
+/* Glitch Effect */
+.ticker-item.glitch .ticker-text {
+  animation: glitch 0.3s ease-in-out;
+}
+
+@keyframes glitch {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2px);
+  }
+  40% {
+    transform: translateX(2px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .status-bar-content {
-    font-size: 9px;
-    gap: 8px;
-    padding: 4px 10px;
-  }
-
-  .status-item {
-    gap: 2px;
-  }
-
-  .status-separator {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .status-bar-content {
-    font-size: 8px;
-    justify-content: space-between;
-  }
-
-  .status-label {
-    display: none;
-  }
-
-  .status-item::before {
-    content: attr(data-label);
-    color: var(--matrix-green-dark);
-    margin-right: 4px;
+  .ticker-item {
+    font-size: var(--text-xs);
+    padding: 0 var(--space-4);
   }
 }

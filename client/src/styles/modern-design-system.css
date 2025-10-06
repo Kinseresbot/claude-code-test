@@ -1,6 +1,6 @@
 /**
- * Modern Design System - Neural Elegance Theme
- * Replaces Matrix terminal theme with sophisticated gradients & glassmorphism
+ * Cyberpunk Sci-Fi Design System
+ * Dark futuristic theme with cyan accents and glowing effects
  */
 
 /* ============================================
@@ -8,27 +8,29 @@
    ============================================ */
 
 :root {
-  /* Primary Colors - Deep Blue/Purple Gradient System */
-  --color-primary-50: #f0f4ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  /* Cyberpunk Cyan Palette */
+  --color-cyan-50: #e0ffff;
+  --color-cyan-100: #ccffff;
+  --color-cyan-200: #99ffff;
+  --color-cyan-300: #66ffff;
+  --color-cyan-400: #33ffff;
+  --color-cyan-500: #00ffff;
+  --color-cyan-600: #00cccc;
+  --color-cyan-700: #009999;
+  --color-cyan-800: #006666;
+  --color-cyan-900: #003333;
 
-  /* Secondary Colors - Vibrant Purple */
-  --color-secondary-400: #a78bfa;
-  --color-secondary-500: #8b5cf6;
-  --color-secondary-600: #7c3aed;
+  /* Dark Blue Accents */
+  --color-blue-dark: #0d1117;
+  --color-blue-darker: #0a0e14;
+  --color-blue-accent: #1a2332;
+  --color-blue-light: #2d3e57;
 
-  /* Accent Colors - Cyan/Teal */
-  --color-accent-400: #2dd4bf;
-  --color-accent-500: #14b8a6;
-  --color-accent-600: #0d9488;
+  /* Text Colors */
+  --text-primary: #E6F1FF;
+  --text-secondary: #8892B0;
+  --text-tertiary: #495670;
+  --text-cyan: #00ffff;
 
   /* Neutral Grays */
   --color-neutral-50: #fafafa;
@@ -41,37 +43,33 @@
   --color-neutral-700: #404040;
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
-  --color-neutral-950: #0a0a0a;
 
   /* Semantic Colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-success: #00ffff;
+  --color-warning: #ffa500;
+  --color-error: #ff4444;
+  --color-info: #00ccff;
 
   /* Background System */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #171717;
-  --bg-tertiary: #262626;
+  --bg-primary: linear-gradient(to bottom, #0d1117, #0a0e14);
+  --bg-secondary: rgba(13, 25, 45, 0.6);
+  --bg-tertiary: rgba(0, 20, 40, 0.6);
 
   /* Glassmorphism */
-  --glass-white: rgba(255, 255, 255, 0.1);
-  --glass-dark: rgba(10, 10, 10, 0.7);
+  --glass-light: rgba(13, 25, 45, 0.75);
+  --glass-dark: rgba(13, 25, 45, 0.6);
+  --glass-border: rgba(0, 255, 255, 0.15);
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --gradient-neural: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #14b8a6 100%);
-
-  /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #d4d4d4;
-  --text-tertiary: #737373;
+  /* Glows & Shadows */
+  --glow-cyan-sm: 0 0 12px rgba(0, 255, 255, 0.4);
+  --glow-cyan-md: 0 0 20px rgba(0, 255, 255, 0.4);
+  --glow-cyan-lg: 0 0 30px rgba(0, 255, 255, 0.5);
+  --shadow-dark: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --shadow-darker: 0 8px 32px rgba(0, 0, 0, 0.3);
 
   /* Font Families */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-display: 'Poppins', 'Inter', sans-serif;
+  --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
   /* Font Sizes - Fluid Typography */
@@ -90,7 +88,7 @@
   --leading-tight: 1.25;
   --leading-snug: 1.375;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
+  --leading-relaxed: 1.6;
   --leading-loose: 2;
 
   /* Font Weights */
@@ -130,30 +128,10 @@
   --radius-2xl: 2rem;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-               0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-               0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-               0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-2xl: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
-
-  --shadow-primary: 0 10px 40px -10px rgba(99, 102, 241, 0.4);
-  --shadow-secondary: 0 10px 40px -10px rgba(139, 92, 246, 0.4);
-  --shadow-accent: 0 10px 40px -10px rgba(20, 184, 166, 0.4);
-
-  --glow-sm: 0 0 10px rgba(99, 102, 241, 0.3);
-  --glow-md: 0 0 20px rgba(99, 102, 241, 0.4);
-  --glow-lg: 0 0 30px rgba(99, 102, 241, 0.5);
-
   /* Transitions */
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-smooth: cubic-bezier(0.45, 0, 0.15, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
   --duration-fast: 150ms;
   --duration-base: 250ms;
@@ -189,6 +167,9 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100dvh;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -198,6 +179,9 @@ body {
   color: var(--text-primary);
   background: var(--bg-primary);
   overflow-x: hidden;
+  height: 100dvh;
+  overscroll-behavior: none;
+  touch-action: manipulation;
 }
 
 /* ============================================
@@ -221,11 +205,14 @@ body {
   font-family: var(--font-mono);
 }
 
-.gradient-text {
-  background: var(--gradient-neural);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.text-cyan {
+  color: var(--text-cyan);
+}
+
+/* Cyan Glow Effect */
+.text-glow {
+  color: var(--text-cyan);
+  text-shadow: var(--glow-cyan-sm);
 }
 
 /* ============================================
@@ -233,24 +220,40 @@ body {
    ============================================ */
 
 .glass {
-  background: var(--glass-white);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-dark);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
 }
 
-.glass-card {
-  background: var(--glass-dark);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+.glass-light {
+  background: var(--glass-light);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+
+.glow {
+  box-shadow: var(--glow-cyan-md);
+}
+
+.glow-sm {
+  box-shadow: var(--glow-cyan-sm);
+}
+
+.glow-lg {
+  box-shadow: var(--glow-cyan-lg);
 }
 
 /* ============================================
    ANIMATION KEYFRAMES
    ============================================ */
 
+/* Fade In Up */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -262,6 +265,7 @@ body {
   }
 }
 
+/* Slide In Right */
 @keyframes slideInRight {
   from {
     opacity: 0;
@@ -273,6 +277,7 @@ body {
   }
 }
 
+/* Scale In */
 @keyframes scaleIn {
   from {
     opacity: 0;
@@ -284,21 +289,66 @@ body {
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Pulse */
 @keyframes pulse {
   0%, 100% {
+    transform: scale(1);
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    transform: scale(1.1);
+    opacity: 0.7;
   }
 }
 
+/* Waveform Pulse */
+@keyframes wavePulse {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scaleY(1.8);
+    opacity: 1;
+  }
+}
+
+/* Scan Line */
+@keyframes scanLine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Flicker In */
+@keyframes flickerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Glow Animation */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4), 0 0 20px rgba(0, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3);
+  }
+}
+
+/* Shimmer */
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
@@ -308,32 +358,10 @@ body {
   }
 }
 
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes orbitPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.6;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
+/* Spin */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -342,7 +370,7 @@ body {
    ============================================ */
 
 *:focus-visible {
-  outline: 2px solid var(--color-primary-500);
+  outline: 2px solid var(--color-cyan-500);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -375,8 +403,8 @@ body {
    ============================================ */
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -385,12 +413,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral-700);
+  background: rgba(0, 255, 255, 0.2);
   border-radius: var(--radius-base);
+  border: 2px solid var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-600);
+  background: rgba(0, 255, 255, 0.3);
 }
 
 /* ============================================
@@ -398,6 +427,6 @@ body {
    ============================================ */
 
 ::selection {
-  background: var(--color-primary-500);
-  color: white;
+  background: rgba(0, 255, 255, 0.3);
+  color: var(--text-primary);
 }

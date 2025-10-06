@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import chatbotService from '../services/chatbot';
 import CommandPalette from './CommandPalette';
-import NeuralSidebar from './NeuralSidebar';
+import NeuralBackground from './NeuralBackground';
 import TerminalStatusBar from './TerminalStatusBar';
 import SocialProofTicker from './SocialProofTicker';
 import MatrixWaterfall from './MatrixWaterfall';
@@ -31,7 +31,6 @@ const MatrixChat = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [showWaterfall, setShowWaterfall] = useState(false);
   const [waterfallType, setWaterfallType] = useState('pricing');
   const [messageCount, setMessageCount] = useState(0);
@@ -166,20 +165,6 @@ const MatrixChat = () => {
       {/* Social Proof Ticker */}
       <SocialProofTicker />
 
-      {/* Matrix Rain Background */}
-      <MatrixRain />
-
-      {/* Scanline Effect */}
-      <div className="scanline"></div>
-
-      {/* Neural Sidebar */}
-      <NeuralSidebar
-        isExpanded={sidebarExpanded}
-        onToggle={() => setSidebarExpanded(!sidebarExpanded)}
-        isProcessing={isLoading}
-        processingStage="analyzing"
-      />
-
       {/* Command Palette */}
       <CommandPalette
         isOpen={commandPaletteOpen}
@@ -196,12 +181,14 @@ const MatrixChat = () => {
         />
       )}
 
-      {/* Main Terminal */}
-      <div className={`terminal-window screen-flicker ${sidebarExpanded ? 'sidebar-open' : ''}`}>
-        {/* Terminal Header */}
+      {/* Main Chat Window */}
+      <div className="terminal-window">
+        {/* Neural Network Background */}
+        <NeuralBackground isProcessing={isLoading} />
+        {/* Header */}
         <div className="terminal-header">
           <div className="terminal-title">
-            <span className="text-glow">MATRIX_TERMINAL_v3.1.4</span>
+            AI Assistant
           </div>
           <div className="terminal-controls">
             <span className="control-dot"></span>
@@ -215,33 +202,46 @@ const MatrixChat = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`message message-${message.sender} message-enter`}
+              className={`message message-${message.sender}`}
             >
-              <div className="message-header">
-                <span className="message-sender">
-                  {message.sender === 'user' && '[USER]'}
-                  {message.sender === 'bot' && '[AGENT]'}
-                  {message.sender === 'system' && '[SYSTEM]'}
-                  {message.sender === 'error' && '[ERROR]'}
-                </span>
-                <span className="message-time">{formatTime(message.timestamp)}</span>
+              {/* Avatar */}
+              <div className="message-avatar">
+                {message.sender === 'user' && 'U'}
+                {message.sender === 'bot' && 'AI'}
+                {message.sender === 'system' && 'SYS'}
+                {message.sender === 'error' && '!'}
               </div>
-              <div className="message-text text-glow">
-                <span className="prompt-symbol">{'>'} </span>
-                {message.text}
+
+              {/* Content */}
+              <div className="message-content">
+                <div className="message-header">
+                  <span className="message-sender">
+                    {message.sender === 'user' && 'You'}
+                    {message.sender === 'bot' && 'Assistant'}
+                    {message.sender === 'system' && 'System'}
+                    {message.sender === 'error' && 'Error'}
+                  </span>
+                  <span className="message-time">{formatTime(message.timestamp)}</span>
+                </div>
+                <div className="message-text">
+                  {message.text}
+                </div>
               </div>
             </div>
           ))}
 
           {isLoading && (
-            <div className="message message-bot message-enter">
-              <div className="message-header">
-                <span className="message-sender">[AGENT]</span>
-              </div>
-              <div className="message-text text-glow">
-                <span className="prompt-symbol">{'>'} </span>
-                Processing
-                <span className="cursor"></span>
+            <div className="message message-bot">
+              <div className="message-avatar">AI</div>
+              <div className="message-content">
+                <div className="message-header">
+                  <span className="message-sender">Assistant</span>
+                </div>
+                <div className="message-text typing-indicator">
+                  <span className="typing-dot"></span>
+                  <span className="typing-dot"></span>
+                  <span className="typing-dot"></span>
+                </div>
               </div>
             </div>
           )}
@@ -252,27 +252,27 @@ const MatrixChat = () => {
         {/* Input Area */}
         <div className="input-container">
           <div className="input-wrapper">
-            <span className="input-prompt text-glow">user@matrix:~$</span>
             <input
               ref={inputRef}
               type="text"
-              className="terminal-input text-glow"
+              className="terminal-input"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Enter command..."
+              placeholder="Type your message..."
               disabled={isLoading}
               autoComplete="off"
               spellCheck="false"
             />
+            <button
+              className="send-button"
+              onClick={handleSend}
+              disabled={isLoading || !inputValue.trim()}
+              aria-label="Send message"
+            >
+              →
+            </button>
           </div>
-          <button
-            className="send-button text-glow"
-            onClick={handleSend}
-            disabled={isLoading || !inputValue.trim()}
-          >
-            [SEND]
-          </button>
         </div>
       </div>
 
@@ -280,44 +280,6 @@ const MatrixChat = () => {
       <TerminalStatusBar />
     </div>
   );
-};
-
-// Optimized Matrix Rain Background Component - Reduced columns for performance
-const MatrixRain = () => {
-  useEffect(() => {
-    const chars = 'ｱｲｳｴｵ01';
-    const container = document.querySelector('.matrix-bg');
-
-    if (!container) return;
-
-    // Reduced columns for better performance
-    const columns = Math.min(Math.floor(window.innerWidth / 40), 30);
-
-    for (let i = 0; i < columns; i++) {
-      const column = document.createElement('div');
-      column.className = 'matrix-rain';
-      column.style.left = `${i * (100 / columns)}%`;
-      column.style.animationDuration = `${Math.random() * 3 + 3}s`;
-      column.style.animationDelay = `${Math.random() * 3}s`;
-
-      // Reduced character count
-      let text = '';
-      for (let j = 0; j < 20; j++) {
-        text += chars[Math.floor(Math.random() * chars.length)] + '<br/>';
-      }
-      column.innerHTML = text;
-
-      container.appendChild(column);
-    }
-
-    return () => {
-      if (container) {
-        container.innerHTML = '';
-      }
-    };
-  }, []);
-
-  return <div className="matrix-bg"></div>;
 };
 
 export default MatrixChat;
