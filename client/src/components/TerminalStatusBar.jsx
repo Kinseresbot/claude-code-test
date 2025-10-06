@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { onCLS, onFCP, onLCP, onTTFB } from 'web-vitals';
 import '../styles/TerminalStatusBar.css';
 
 const TerminalStatusBar = () => {
@@ -10,12 +11,65 @@ const TerminalStatusBar = () => {
     uptime: '99.94%',
   });
 
+  const [perfMetrics, setPerfMetrics] = useState({
+    lcp: null,
+    fcp: null,
+    cls: null,
+    ttfb: null,
+  });
+
+  const formatPerfMetric = (value, thresholds) => {
+    if (value === null) return 'measuring...';
+    const rating = value <= thresholds.good ? 'good' : value <= thresholds.fair ? 'fair' : 'poor';
+    return `${value.toFixed(value < 1 ? 3 : 2)}${thresholds.unit} (${rating})`;
+  };
+
   const statMessages = [
     { label: 'USERS', value: () => `${stats.usersOnline.toLocaleString()} online now` },
     { label: 'RESPONSE', value: () => `${stats.avgResponse} average` },
     { label: 'QUERIES', value: () => `${stats.queriesToday.toLocaleString()} processed today` },
     { label: 'UPTIME', value: () => `${stats.uptime} operational` },
+    {
+      label: 'LCP',
+      value: () => formatPerfMetric(
+        perfMetrics.lcp ? perfMetrics.lcp / 1000 : null,
+        { good: 2.5, fair: 4.0, unit: 's' }
+      )
+    },
+    {
+      label: 'FCP',
+      value: () => formatPerfMetric(
+        perfMetrics.fcp ? perfMetrics.fcp / 1000 : null,
+        { good: 1.8, fair: 3.0, unit: 's' }
+      )
+    },
+    {
+      label: 'CLS',
+      value: () => formatPerfMetric(
+        perfMetrics.cls,
+        { good: 0.1, fair: 0.25, unit: '' }
+      )
+    },
   ];
+
+  useEffect(() => {
+    // Capture Web Vitals performance metrics
+    onLCP((metric) => {
+      setPerfMetrics((prev) => ({ ...prev, lcp: metric.value }));
+    });
+
+    onFCP((metric) => {
+      setPerfMetrics((prev) => ({ ...prev, fcp: metric.value }));
+    });
+
+    onCLS((metric) => {
+      setPerfMetrics((prev) => ({ ...prev, cls: metric.value }));
+    });
+
+    onTTFB((metric) => {
+      setPerfMetrics((prev) => ({ ...prev, ttfb: metric.value }));
+    });
+  }, []);
 
   useEffect(() => {
     // Update stats

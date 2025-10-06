@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { AuthProvider } from './context/AuthContext';
 import ChatbotLanding from './pages/ChatbotLanding';
 import Layout from './components/Layout';
@@ -10,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
     <AuthProvider>
+      <SpeedInsights />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ChatbotLanding />} />
